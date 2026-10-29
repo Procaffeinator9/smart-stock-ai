@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+/* SmartStock design tokens. Light theme only for now (dark theme is planned). */
+@theme {
+  --color-canvas: #f6f7fa;
+  --color-surface: #ffffff;
+  --color-ink: #0b1630;
+  --color-ink-muted: #4d5b75;
+  --color-ink-subtle: #8591a7;
+  --color-line: #e5e9f0;
+  --color-line-strong: #d4dae5;
+  --color-brand: #4f46e5;
+  --color-brand-strong: #4338ca;
+  --color-brand-soft: #eef0ff;
+
+  --shadow-card: 0 1px 2px rgb(11 22 48 / 0.04), 0 6px 20px -8px rgb(11 22 48 / 0.08);
+  --shadow-card-hover: 0 1px 2px rgb(11 22 48 / 0.05), 0 12px 32px -12px rgb(11 22 48 / 0.16);
+  --shadow-pop: 0 18px 48px -12px rgb(11 22 48 / 0.28);
+
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@theme inline {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+  }
+
+  body {
+    background:
+      radial-gradient(1100px 420px at 15% -8%, rgb(79 70 229 / 0.07), transparent 70%),
+      radial-gradient(900px 380px at 100% 0%, rgb(14 165 233 / 0.05), transparent 70%),
+      var(--color-canvas);
+    background-attachment: fixed;
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  dialog.app-dialog::backdrop {
+    background: rgb(11 22 48 / 0.32);
+    backdrop-filter: blur(3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Indeterminate loading bar (Inventory results). */
+@keyframes indeterminate {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(300%);
+  }
+}
+
+/* Stop the page scrolling behind an open modal. */
+html:has(dialog[open]) {
+  overflow: hidden;
+}
